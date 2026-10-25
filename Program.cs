@@ -1,8 +1,8 @@
 ﻿int elementCount = 8_000_000;
 int stepCount = 4;
-int bytesPerElement = 1;
+int bytesPerElement = 4;
 double bytesPerMiB = 1024.0 * 1024;
-List<byte[]> blocks = new List<byte[]>();
+List<int[]> blocks = new List<int[]>();
 
 long startMemory = Environment.WorkingSet;
 Console.WriteLine($"Шаг 0. Рабочий набор: {startMemory / bytesPerMiB:F2} MiB");
@@ -11,9 +11,9 @@ for (int step = 1; step <= stepCount; step++) {
     Console.WriteLine("Нажмите Enter, чтобы добавить блок данных.");
     Console.ReadLine();
 
-    byte[] block = new byte[elementCount];
+    int[] block = new int[elementCount];
     for (int i = 0; i < block.Length; i++) {
-        block[i] = 1;
+        block[i] = 1_000_000;
     }
     blocks.Add(block);
 
@@ -27,7 +27,7 @@ for (int step = 1; step <= stepCount; step++) {
 Console.WriteLine("Данные сохранены в памяти. Нажмите Enter для завершения.");
 Console.ReadLine();
 long check = 0;
-foreach (byte[] block in blocks) {
+foreach (int[] block in blocks)  {
     check += block[0];
 }
 Console.WriteLine($"Контрольная сумма первых элементов: {check}");
